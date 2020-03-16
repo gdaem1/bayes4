@@ -76,99 +76,195 @@ bayes_arpu <- function(
     convExpLossA_AB <- sum(diffTemp*(diffTemp > 0))/MSamples
     convExpLossB_AB <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    convProbAbeatsB <- sum(lambdaA > lambdaB)/MSamples
+    diffTemp <- lambdaA - lambdaB
+    convExpLossA_AB2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    convExpLossB_AB2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     convProbCbeatsA <- sum(lambdaC > lambdaA)/MSamples
     diffTemp <- lambdaC - lambdaA
     convExpLossA_AC <- sum(diffTemp*(diffTemp > 0))/MSamples
     convExpLossC_AC <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
+    convProbAbeatsC <- sum(lambdaA > lambdaC)/MSamples
+    diffTemp <- lambdaA - lambdaC
+    convExpLossA_AC2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    convExpLossC_AC2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
     convProbDbeatsA <- sum(lambdaD > lambdaA)/MSamples
     diffTemp <- lambdaD - lambdaA
     convExpLossA_AD <- sum(diffTemp*(diffTemp > 0))/MSamples
     convExpLossD_AD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    convProbAbeatsD <- sum(lambdaA > lambdaD)/MSamples
+    diffTemp <- lambdaA - lambdaD
+    convExpLossA_AD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    convExpLossD_AD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     convProbCbeatsB <- sum(lambdaC > lambdaB)/MSamples
     diffTemp <- lambdaC - lambdaB
     convExpLossB_BC <- sum(diffTemp*(diffTemp > 0))/MSamples
     convExpLossC_BC <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
+    convProbBbeatsC <- sum(lambdaB > lambdaC)/MSamples
+    diffTemp <- lambdaB - lambdaC
+    convExpLossB_BC2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    convExpLossC_BC2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
     convProbDbeatsB <- sum(lambdaD > lambdaB)/MSamples
     diffTemp <- lambdaD - lambdaB
     convExpLossB_BD <- sum(diffTemp*(diffTemp > 0))/MSamples
     convExpLossD_BD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    convProbBbeatsD <- sum(lambdaB > lambdaD)/MSamples
+    diffTemp <- lambdaB - lambdaD
+    convExpLossB_BD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    convExpLossD_BD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     convProbDbeatsC <- sum(lambdaD > lambdaC)/MSamples
     diffTemp <- lambdaD - lambdaC
     convExpLossC_CD <- sum(diffTemp*(diffTemp > 0))/MSamples
     convExpLossD_CD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
+    convProbCbeatsD <- sum(lambdaC > lambdaD)/MSamples
+    diffTemp <- lambdaC - lambdaD
+    convExpLossC_CD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    convExpLossD_CD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
     revProbBbeatsA <- sum(1/omegaB > 1/omegaA)/MSamples
     diffTemp <- 1/omegaB - 1/omegaA
     revExpLossA_AB <- sum(diffTemp*(diffTemp > 0))/MSamples
     revExpLossB_AB <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    revProbAbeatsB <- sum(1/omegaA > 1/omegaB)/MSamples
+    diffTemp <- 1/omegaA - 1/omegaB
+    revExpLossA_AB2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    revExpLossB_AB2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     revProbCbeatsA <- sum(1/omegaC > 1/omegaA)/MSamples
     diffTemp <- 1/omegaC - 1/omegaA
     revExpLossA_AC <- sum(diffTemp*(diffTemp > 0))/MSamples
     revExpLossC_AC <- sum(-diffTemp*(-diffTemp > 0))/MSamples
-  
+    
+    revProbAbeatsC <- sum(1/omegaA > 1/omegaC)/MSamples
+    diffTemp <- 1/omegaA - 1/omegaC
+    revExpLossA_AC2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    revExpLossC_AC2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     revProbDbeatsA <- sum(1/omegaD > 1/omegaA)/MSamples
     diffTemp <- 1/omegaD - 1/omegaA
     revExpLossA_AD <- sum(diffTemp*(diffTemp > 0))/MSamples
     revExpLossD_AD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
-  
+    
+    revProbAbeatsD <- sum(1/omegaA > 1/omegaD)/MSamples
+    diffTemp <- 1/omegaA - 1/omegaD
+    revExpLossA_AD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    revExpLossD_AD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     revProbCbeatsB <- sum(1/omegaC > 1/omegaB)/MSamples
     diffTemp <- 1/omegaC - 1/omegaB
     revExpLossB_BC <- sum(diffTemp*(diffTemp > 0))/MSamples
     revExpLossC_BC <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
+    revProbBbeatsC <- sum(1/omegaB > 1/omegaC)/MSamples
+    diffTemp <- 1/omegaB - 1/omegaC
+    revExpLossB_BC2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    revExpLossC_BC2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
     revProbDbeatsB <- sum(1/omegaD > 1/omegaB)/MSamples
     diffTemp <- 1/omegaD - 1/omegaB
     revExpLossB_BD <- sum(diffTemp*(diffTemp > 0))/MSamples
     revExpLossD_BD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    revProbBbeatsD <- sum(1/omegaB > 1/omegaD)/MSamples
+    diffTemp <- 1/omegaB - 1/omegaD
+    revExpLossB_BD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    revExpLossD_BD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     revProbDbeatsC <- sum(1/omegaD > 1/omegaC)/MSamples
     diffTemp <- 1/omegaD - 1/omegaC
     revExpLossC_CD <- sum(diffTemp*(diffTemp > 0))/MSamples
     revExpLossD_CD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
+    revProbCbeatsD <- sum(1/omegaC > 1/omegaD)/MSamples
+    diffTemp <- 1/omegaC - 1/omegaD
+    revExpLossC_CD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    revExpLossD_CD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
     arpuProbBbeatsA <- sum(lambdaB/omegaB > lambdaA/omegaA)/MSamples
     diffTemp <- lambdaB/omegaB - lambdaA/omegaA
     arpuExpLossA_AB <- sum(diffTemp*(diffTemp > 0))/MSamples
     arpuExpLossB_AB <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    arpuProbAbeatsB <- sum(lambdaA/omegaA > lambdaB/omegaB)/MSamples
+    diffTemp <- lambdaA/omegaA - lambdaB/omegaB
+    arpuExpLossA_AB2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    arpuExpLossB_AB2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     arpuProbCbeatsA <- sum(lambdaC/omegaC > lambdaA/omegaA)/MSamples
     diffTemp <- lambdaC/omegaC - lambdaA/omegaA
     arpuExpLossA_AC <- sum(diffTemp*(diffTemp > 0))/MSamples
     arpuExpLossC_AC <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
+    arpuProbAbeatsC <- sum(lambdaA/omegaA > lambdaC/omegaC)/MSamples
+    diffTemp <- lambdaA/omegaA - lambdaC/omegaC
+    arpuExpLossA_AC2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    arpuExpLossC_AC2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
     arpuProbDbeatsA <- sum(lambdaD/omegaD > lambdaA/omegaA)/MSamples
     diffTemp <- lambdaD/omegaD - lambdaA/omegaA
     arpuExpLossA_AD <- sum(diffTemp*(diffTemp > 0))/MSamples
     arpuExpLossD_AD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    arpuProbAbeatsD <- sum(lambdaA/omegaA > lambdaD/omegaD)/MSamples
+    diffTemp <- lambdaA/omegaA - lambdaD/omegaD
+    arpuExpLossA_AD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    arpuExpLossD_AD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     arpuProbCbeatsB <- sum(lambdaC/omegaC > lambdaB/omegaB)/MSamples
     diffTemp <- lambdaC/omegaC - lambdaB/omegaB
     arpuExpLossB_BC <- sum(diffTemp*(diffTemp > 0))/MSamples
     arpuExpLossC_BC <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
+    arpuProbBbeatsC <- sum(lambdaB/omegaB > lambdaC/omegaC)/MSamples
+    diffTemp <- lambdaB/omegaB - lambdaC/omegaC
+    arpuExpLossB_BC2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    arpuExpLossC_BC2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
     arpuProbDbeatsB <- sum(lambdaD/omegaD > lambdaB/omegaB)/MSamples
     diffTemp <- lambdaD/omegaD - lambdaB/omegaB
     arpuExpLossB_BD <- sum(diffTemp*(diffTemp > 0))/MSamples
     arpuExpLossD_BD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    arpuProbBbeatsD <- sum(lambdaB/omegaB > lambdaD/omegaD)/MSamples
+    diffTemp <- lambdaB/omegaB - lambdaD/omegaD
+    arpuExpLossB_BD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    arpuExpLossD_BD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
     arpuProbDbeatsC <- sum(lambdaD/omegaD > lambdaC/omegaC)/MSamples
     diffTemp <- lambdaD/omegaD - lambdaC/omegaC
     arpuExpLossC_CD <- sum(diffTemp*(diffTemp > 0))/MSamples
     arpuExpLossD_CD <- sum(-diffTemp*(-diffTemp > 0))/MSamples
     
+    arpuProbCbeatsD <- sum(lambdaC/omegaC > lambdaD/omegaD)/MSamples
+    diffTemp <- lambdaC/omegaC - lambdaD/omegaD
+    arpuExpLossC_CD2 <- sum(diffTemp*(diffTemp > 0))/MSamples
+    arpuExpLossD_CD2 <- sum(-diffTemp*(-diffTemp > 0))/MSamples
+    
   }
   list(
     convProbBbeatsA = convProbBbeatsA,
+    convProbAbeatsB = convProbAbeatsB,
     convProbCbeatsA = convProbCbeatsA,
+    convProbAbeatsC = convProbAbeatsC,
     convProbDbeatsA = convProbDbeatsA,
+    convProbAbeatsD = convProbAbeatsD,
     convProbCbeatsB = convProbCbeatsB,
+    convProbBbeatsC = convProbBbeatsC,
     convProbDbeatsB = convProbDbeatsB,
+    convProbBbeatsD = convProbBbeatsD,
     convProbDbeatsC = convProbDbeatsC,
+    convProbCbeatsD = convProbCbeatsD,
     convExpLossA_AB = convExpLossA_AB,
     convExpLossB_AB = convExpLossB_AB,
     convExpLossA_AC = convExpLossA_AC,
@@ -181,12 +277,31 @@ bayes_arpu <- function(
     convExpLossD_BD = convExpLossD_BD,
     convExpLossC_CD = convExpLossC_CD,
     convExpLossD_CD = convExpLossD_CD,
+    convExpLossA_AB2 = convExpLossA_AB2,
+    convExpLossB_AB2 = convExpLossB_AB2,
+    convExpLossA_AC2 = convExpLossA_AC2,
+    convExpLossC_AC2 = convExpLossC_AC2,
+    convExpLossA_AD2 = convExpLossA_AD2,
+    convExpLossD_AD2 = convExpLossD_AD2,
+    convExpLossB_BC2 = convExpLossB_BC2,
+    convExpLossC_BC2 = convExpLossC_BC2,
+    convExpLossB_BD2 = convExpLossB_BD2,
+    convExpLossD_BD2 = convExpLossD_BD2,
+    convExpLossC_CD2 = convExpLossC_CD2,
+    convExpLossD_CD2 = convExpLossD_CD2,
+    
     revProbBbeatsA = revProbBbeatsA,
+    revProbAbeatsB = revProbAbeatsB,
     revProbCbeatsA = revProbCbeatsA,
+    revProbAbeatsC = revProbAbeatsC,
     revProbDbeatsA = revProbDbeatsA,
+    revProbAbeatsD = revProbAbeatsD,
     revProbCbeatsB = revProbCbeatsB,
+    revProbBbeatsC = revProbBbeatsC,
     revProbDbeatsB = revProbDbeatsB,
+    revProbBbeatsD = revProbBbeatsD,
     revProbDbeatsC = revProbDbeatsC,
+    revProbCbeatsD = revProbCbeatsD,
     revExpLossA_AB = revExpLossA_AB,
     revExpLossB_AB = revExpLossB_AB,
     revExpLossA_AC = revExpLossA_AC,
@@ -199,12 +314,34 @@ bayes_arpu <- function(
     revExpLossD_BD = revExpLossD_BD,
     revExpLossC_CD = revExpLossC_CD,
     revExpLossD_CD = revExpLossD_CD,
+    revExpLossA_AB2 = revExpLossA_AB2,
+    revExpLossB_AB2 = revExpLossB_AB2,
+    revExpLossA_AC2 = revExpLossA_AC2,
+    revExpLossC_AC2 = revExpLossC_AC2,
+    revExpLossA_AD2 = revExpLossA_AD2,
+    revExpLossD_AD2 = revExpLossD_AD2,
+    revExpLossB_BC2 = revExpLossB_BC2,
+    revExpLossC_BC2 = revExpLossC_BC2,
+    revExpLossB_BD2 = revExpLossB_BD2,
+    revExpLossD_BD2 = revExpLossD_BD2,
+    revExpLossC_CD2 = revExpLossC_CD2,
+    revExpLossD_CD2 = revExpLossD_CD2,
+    
     arpuProbBbeatsA = arpuProbBbeatsA,
+    arpuProbAbeatsB = arpuProbAbeatsB,
     arpuProbCbeatsA = arpuProbCbeatsA,
+    arpuProbAbeatsC = arpuProbAbeatsC,
     arpuProbDbeatsA = arpuProbDbeatsA,
+    arpuProbAbeatsD = arpuProbAbeatsD,
     arpuProbCbeatsB = arpuProbCbeatsB,
+    arpuProbBbeatsC = arpuProbBbeatsC,
+    
     arpuProbDbeatsB = arpuProbDbeatsB,
+    arpuProbBbeatsD = arpuProbBbeatsD,
     arpuProbDbeatsC = arpuProbDbeatsC,
+    arpuProbCbeatsD = arpuProbCbeatsD,
+    
+    
     arpuExpLossA_AB = arpuExpLossA_AB,
     arpuExpLossB_AB = arpuExpLossB_AB,
     arpuExpLossA_AC = arpuExpLossA_AC,
@@ -217,6 +354,18 @@ bayes_arpu <- function(
     arpuExpLossD_BD = arpuExpLossD_BD,
     arpuExpLossC_CD = arpuExpLossC_CD,
     arpuExpLossD_CD = arpuExpLossD_CD,
+    arpuExpLossA_AB2 = arpuExpLossA_AB2,
+    arpuExpLossB_AB2 = arpuExpLossB_AB2,
+    arpuExpLossA_AC2 = arpuExpLossA_AC2,
+    arpuExpLossC_AC2 = arpuExpLossC_AC2,
+    arpuExpLossA_AD2 = arpuExpLossA_AD2,
+    arpuExpLossD_AD2 = arpuExpLossD_AD2,
+    arpuExpLossB_BC2 = arpuExpLossB_BC2,
+    arpuExpLossC_BC2 = arpuExpLossC_BC2,
+    arpuExpLossB_BD2 = arpuExpLossB_BD2,
+    arpuExpLossD_BD2 = arpuExpLossD_BD2,
+    arpuExpLossC_CD2 = arpuExpLossC_CD2,
+    arpuExpLossD_CD2 = arpuExpLossD_CD2,
     sampleLambdaA = lambdaA,
     sampleLambdaB = lambdaB,
     sampleLambdaC = lambdaC,
@@ -237,7 +386,7 @@ bayes_arpu <- function(
   #   credMass is a scalar between 0 and 1, indicating the mass within
   #     the credible interval that is to be estimated.
   # Return value:
-  #   Highest density iterval (HDI) limits in a vector
+  #   Highest density interval (HDI) limits in a vector
 }
 hdi_of_sample <- function(sampleVec, credMass = 0.95) {
   sortedPts <- sort(sampleVec)
@@ -420,7 +569,6 @@ prob_B_beats_C <- function(alphaC, betaC, alphaB, betaB) {
   result
 }
 
-
 prob_D_beats_B <- function(alphaB, betaB, alphaD, betaD) {
   if(alphaB <= 0 || betaB <= 0 || alphaD <= 0 || betaD <= 0)
     result <- 0
@@ -458,7 +606,7 @@ prob_B_beats_D <- function(alphaD, betaD, alphaB, betaB) {
 }
 
 prob_D_beats_C <- function(alphaC, betaC, alphaD, betaD) {
-  if(alphaC <= 0 || beta <= 0 || alphaD <= 0 || betaD <= 0)
+  if(alphaC <= 0 || betaC <= 0 || alphaD <= 0 || betaD <= 0)
     result <- 0
   else {
     result <- 1
@@ -491,204 +639,4 @@ prob_C_beats_D <- function(alphaD, betaD, alphaC, betaC) {
     }
   }
   result
-}
-
-# Creates plotly chart of approximate density based on a sample data
-plot_sample_density <- function(
-  sampleDataA, hdiA = c(-0.1, 0.1),
-  sampleDataB, hdiB = c(-0.1, 0.1),
-  sampleDataC, hdiC = c(-0.1, 0.1),
-  printPlot = TRUE, ...
-) {
-  if(printPlot) {
-    densA <- density(sampleDataA, bw = 'nrd')
-    plotDataA <- data.frame(x = densA$x, y = densA$y)
-    xA <- plotDataA$x
-    yA <- plotDataA$y
-    xAreaA <- plotDataA[plotDataA$x >= hdiA[1] & plotDataA$x <= hdiA[2], ]$x
-    yAreaA <- plotDataA[plotDataA$x >= hdiA[1] & plotDataA$x <= hdiA[2], ]$y
-    densB <- density(sampleDataB, bw = 'nrd')
-    plotDataB <- data.frame(x = densB$x, y = densB$y)
-    xB <- plotDataB$x
-    yB <- plotDataB$y
-    xAreaB <- plotDataB[plotDataB$x >= hdiB[1] & plotDataB$x <= hdiB[2], ]$x
-    yAreaB <- plotDataB[plotDataB$x >= hdiB[1] & plotDataB$x <= hdiB[2], ]$y
-    densC <- density(sampleDataC, bw = 'nrd')
-    plotDataC <- data.frame(x = densC$x, y = densC$y)
-    xC <- plotDataC$x
-    yC <- plotDataC$y
-    xAreaC <- plotDataC[plotDataC$x >= hdiC[1] & plotDataC$x <= hdiC[2], ]$x
-    yAreaC <- plotDataC[plotDataC$x >= hdiC[1] & plotDataC$x <= hdiC[2], ]$y
-    plot_ly(
-      x = xA,
-      y = yA,
-      type = 'scatter',
-      mode = 'lines',
-      name = 'ARPU B - A',
-      line = list(color = '#008B00'),
-      hoverinfo = 'none',
-      # text = ~paste(sprintf('%.3g%%', x*100)),
-      showlegend = FALSE
-    ) %>% add_trace(
-      x = xAreaA,
-      y = yAreaA,
-      type = 'scatter',
-      mode = 'lines',
-      fill = 'tozeroy',
-      fillcolor = 'rgba(0, 139, 0, 0.2)',
-      line = list(color = '#008B00'),
-      hoverinfo = 'none',
-      # text = ~paste(sprintf('%.3g%%', xAreaA*100)),
-      showlegend = FALSE
-    ) %>% layout(
-      x = xB,
-      y = yB,
-      type = 'scatter',
-      mode = 'lines',
-      name = 'ARPU C - A',
-      line = list(color = '##ff2f00'),
-      hoverinfo = 'none',
-      # text = ~paste(sprintf('%.3g%%', x*100)),
-      showlegend = FALSE
-    ) %>% add_trace(
-      x = xAreaB,
-      y = yAreaB,
-      type = 'scatter',
-      mode = 'lines',
-      fill = 'tozeroy',
-      fillcolor = 'rgba(255, 47, 0, 0.2)',
-      line = list(color = '#ff2f00'),
-      hoverinfo = 'none',
-      # text = ~paste(sprintf('%.3g%%', xAreaB*100)),
-      showlegend = FALSE
-    ) %>% layout(
-      x = xC,
-      y = yC,
-      type = 'scatter',
-      mode = 'lines',
-      name = 'ARPU C - B',
-      line = list(color = '#4493c9'),
-      hoverinfo = 'none',
-      # text = ~paste(sprintf('%.3g%%', x*100)),
-      showlegend = FALSE
-    ) %>% add_trace(
-      x = xAreaC,
-      y = yAreaC,
-      type = 'scatter',
-      mode = 'lines',
-      fill = 'tozeroy',
-      fillcolor = 'rgba(68, 147, 201, 0.2)',
-      line = list(color = '#4493c9'),
-      hoverinfo = 'none',
-      # text = ~paste(sprintf('%.3g%%', xArea*100)),
-      showlegend = FALSE
-    ) %>% layout(
-      title = 'Approximate distribution of difference of ARPU A, B, and C',
-      title = list(fontsize = 14),
-      xaxis = list(showgrid = FALSE, fixedrange = TRUE),
-      yaxis = list(showline = FALSE, showticklabels = FALSE, showgrid = FALSE, fixedrange = TRUE),
-      legend = list(x = 0.9, y = 0.9)
-    ) %>% config(displayModeBar = FALSE)
-    
-  } else {
-    plot_ly(type = 'scatter', mode = 'markers')
-  }
-}
-
-# Creates plotly chart of approximate densities based on a sample data
-plot_sample_densities <- function(
-  sampleDataA, hdiA = c(-0.1, 0.1),
-  sampleDataB, hdiB = c(-0.1, 0.1),
-  sampleDataC, hdiC = c(-0.1, 0.1),
-  printPlot = TRUE, ...
-) {
-  if(printPlot) {
-    densA <- density(sampleDataA, bw = 'nrd')
-    plotDataA <- data.frame(x = densA$x, y = densA$y)
-    xA <- plotDataA$x
-    yA <- plotDataA$y
-    xAreaA <- plotDataA[plotDataA$x >= hdiA[1] & plotDataA$x <= hdiA[2], ]$x
-    yAreaA <- plotDataA[plotDataA$x >= hdiA[1] & plotDataA$x <= hdiA[2], ]$y
-    densB <- density(sampleDataB, bw = 'nrd')
-    plotDataB <- data.frame(x = densB$x, y = densB$y)
-    xB <- plotDataB$x
-    yB <- plotDataB$y
-    xAreaB <- plotDataB[plotDataB$x >= hdiB[1] & plotDataB$x <= hdiB[2], ]$x
-    yAreaB <- plotDataB[plotDataB$x >= hdiB[1] & plotDataB$x <= hdiB[2], ]$y
-    densC <- density(sampleDataC, bw = 'nrd')
-    plotDataC <- data.frame(x = densC$x, y = densC$y)
-    xC <- plotDataC$x
-    yC <- plotDataC$y
-    xAreaC <- plotDataC[plotDataC$x >= hdiC[1] & plotDataC$x <= hdiC[2], ]$x
-    yAreaC <- plotDataC[plotDataC$x >= hdiC[1] & plotDataC$x <= hdiC[2], ]$y
-    plot_ly(
-      x = xA,
-      y = yA,
-      type = 'scatter',
-      mode = 'lines',
-      name = 'Sample A',
-      line = list(color = '#008B00'),
-      hoverinfo = 'none',
-      showlegend = TRUE
-    ) %>% add_trace(
-      x = xAreaA,
-      y = yAreaA,
-      type = 'scatter',
-      mode = 'lines',
-      fill = 'tozeroy',
-      fillcolor = 'rgba(0, 139, 0, 0.2)',
-      line = list(color = '#008B00'),
-      hoverinfo = 'none',
-      showlegend = FALSE
-    ) %>% add_trace(
-      x = xB,
-      y = yB,
-      type = 'scatter',
-      mode = 'lines',
-      name = 'Sample B',
-      line = list(color = '#ff2f00'),
-      hoverinfo = 'none',
-      showlegend = TRUE
-    ) %>% add_trace(
-      x = xAreaB,
-      y = yAreaB,
-      type = 'scatter',
-      mode = 'lines',
-      name = 'Sample B',
-      fill = 'tozeroy',
-      fillcolor = 'rgba(255, 47, 0, 0.2)',
-      line = list(color = '#ff2f00'),
-      hoverinfo = 'none',
-      showlegend = FALSE
-    ) %>% layout(
-      x = xC,
-      y = yC,
-      type = 'scatter',
-      mode = 'lines',
-      name = 'Sample C',
-      line = list(color = '#4493c9'),
-      hoverinfo = 'none',
-      showlegend = FALSE
-    ) %>% add_trace(
-      x = xAreaC,
-      y = yAreaC,
-      type = 'scatter',
-      mode = 'lines',
-      name = 'Sample C',
-      fill = 'tozeroy',
-      fillcolor = 'rgba(68, 147, 201, 0.2)',
-      line = list(color = '#4493c9'),
-      hoverinfo = 'none',
-      showlegend = TRUE
-    ) %>% layout(
-      title = 'Distribution of ARPU A, B, and C',
-      title = list(fontsize = 14),
-      xaxis = list(showgrid = FALSE, fixedrange = TRUE),
-      yaxis = list(showline = FALSE, showticklabels = FALSE, showgrid = FALSE, fixedrange = TRUE),
-      legend = list(x = 0.9, y = 0.9),
-      showlegend = TRUE
-    ) %>% config(displayModeBar = FALSE)
-  } else {
-    plot_ly(type = 'scatter', mode = 'markers')
-  }
 }
