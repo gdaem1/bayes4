@@ -95,6 +95,10 @@ shinyServer(function(input, output) {
       betaret_B <- isolate({input$total_B - input$retention_B + 1})
       betaret_C <- isolate({input$total_C - input$retention_C + 1})
       betaret_D <- isolate({input$total_D - input$retention_D + 1})
+      retention_A <- isolate({input$retention_A})
+      retention_B <- isolate({input$retention_B})
+      retention_C <- isolate({input$retention_C})
+      retention_D <- isolate({input$retention_D})
       res <- isolate({
         bayes_arpu(
           alphaA = alpha_A, betaA = beta_A,
@@ -188,6 +192,7 @@ shinyServer(function(input, output) {
         b <- hdi_diffCD[2]
         c(1.2*a - 0.2*b, 1.2*b - 0.2*a)
       }
+      
       printPlot <- isolate({TRUE})
     } else {
       sample_A <- isolate({0})
@@ -236,28 +241,58 @@ shinyServer(function(input, output) {
       x_lim_diff <- isolate({c(NaN, NaN)})
       x_limAC <- isolate({c(NaN, NaN)})
       x_lim_diffAC <- isolate({c(NaN, NaN)})
+      x_limAD <- isolate({c(NaN, NaN)})
+      x_lim_diffAD <- isolate({c(NaN, NaN)})
       x_limBC <- isolate({c(NaN, NaN)})
       x_lim_diffBC <- isolate({c(NaN, NaN)})
+      x_limBD <- isolate({c(NaN, NaN)})
+      x_lim_diffBD <- isolate({c(NaN, NaN)})
+      x_limCD <- isolate({c(NaN, NaN)})
+      x_lim_diffCD <- isolate({c(NaN, NaN)})
       res <- isolate({
         list(
           convProbBbeatsA = NaN, convExpLossA_AB = NaN, convExpLossB_AB = NaN,
           revProbBbeatsA = NaN, revExpLossA_AB = NaN, revExpLossB_AB = NaN,
           arpuProbBbeatsA = NaN, arpuExpLossA_AB = NaN, arpuExpLossB_AB = NaN,
-          convProbCbeatsA = NaN, convExpLossA_AC = NaN, convExpLossA_AC = NaN,
+          convProbAbeatsB = NaN, convExpLossA_AB2 = NaN, convExpLossB_AB2 = NaN,
+          revProbAbeatsB = NaN, revExpLossA_AB2 = NaN, revExpLossB_AB2 = NaN,
+          arpuProbAbeatsB = NaN, arpuExpLossA_AB2 = NaN, arpuExpLossB_AB2 = NaN,
+          
+          convProbCbeatsA = NaN, convExpLossA_AC = NaN, convExpLossC_AC = NaN,
           revProbCbeatsA = NaN, revExpLossA_AC = NaN, revExpLossC_AC = NaN,
           arpuProbCbeatsA = NaN, arpuExpLossA_AC = NaN, arpuExpLossC_AC = NaN,
-          convProbDbeatsA = NaN, convExpLossA_AD = NaN, convExpLossA_AD = NaN,
+          convProbAbeatsC = NaN, convExpLossA_AC2 = NaN, convExpLossC_AC2 = NaN,
+          revProbAbeatsC = NaN, revExpLossA_AC2 = NaN, revExpLossC_AC2 = NaN,
+          arpuProbAbeatsC = NaN, arpuExpLossA_AC2 = NaN, arpuExpLossC_AC2 = NaN,
+
+          convProbDbeatsA = NaN, convExpLossA_AD = NaN, convExpLossD_AD = NaN,
           revProbDbeatsA = NaN, revExpLossA_AD = NaN, revExpLossD_AD = NaN,
           arpuProbDbeatsA = NaN, arpuExpLossA_AD = NaN, arpuExpLossD_AD = NaN,
+          convProbAbeatsD = NaN, convExpLossA_AD2 = NaN, convExpLossD_AD2 = NaN,
+          revProbAbeatsD = NaN, revExpLossA_AD2 = NaN, revExpLossD_AD2 = NaN,
+          arpuProbAbeatsD = NaN, arpuExpLossA_AD2 = NaN, arpuExpLossD_AD2 = NaN,
+          
           convProbCbeatsB = NaN, convExpLossB_BC = NaN, convExpLossB_BC = NaN,
           revProbCbeatsB = NaN, revExpLossB_BC = NaN, revExpLossC_BC = NaN,
           arpuProbCbeatsB = NaN, arpuExpLossB_BC = NaN, arpuExpLossC_BC = NaN,
+          convProbBbeatsC = NaN, convExpLossB_BC2 = NaN, convExpLossB_BC2 = NaN,
+          revProbBbeatsC = NaN, revExpLossB_BC2 = NaN, revExpLossC_BC2 = NaN,
+          arpuProbBbeatsC = NaN, arpuExpLossB_BC2 = NaN, arpuExpLossC_BC2 = NaN,
+          
           convProbDbeatsB = NaN, convExpLossB_BD = NaN, convExpLossB_BD = NaN,
           revProbDbeatsB = NaN, revExpLossB_BD = NaN, revExpLossD_BD = NaN,
           arpuProbDbeatsB = NaN, arpuExpLossB_BD = NaN, arpuExpLossD_BD = NaN,
-          convProbDbeatsC = NaN, convExpLossC_CD = NaN, convExpLossD_CD = NaN,
+          convProbBbeatsD = NaN, convExpLossB_BD2 = NaN, convExpLossB_BD2 = NaN,
+          revProbBbeatsD = NaN, revExpLossB_BD2 = NaN, revExpLossD_BD2 = NaN,
+          arpuProbBbeatsD = NaN, arpuExpLossB_BD2 = NaN, arpuExpLossD_BD2 = NaN,
+          
+          convProbDbeatsC = NaN, convExpLossC_CD = NaN, convExpLossC_CD = NaN,
           revProbDbeatsC = NaN, revExpLossC_CD = NaN, revExpLossD_CD = NaN,
-          arpuProbDbeatsC = NaN, arpuExpLossC_CD = NaN, arpuExpLossD_CD = NaN
+          arpuProbDbeatsC = NaN, arpuExpLossC_CD = NaN, arpuExpLossD_CD = NaN,
+          convProbCbeatsD = NaN, convExpLossC_CD2 = NaN, convExpLossC_CD2 = NaN,
+          revProbCbeatsD = NaN, revExpLossC_CD2 = NaN, revExpLossD_CD2 = NaN,
+          arpuProbCbeatsD = NaN, arpuExpLossC_CD2 = NaN, arpuExpLossD_CD2 = NaN
+          
         )
       })
       printPlot <- isolate({FALSE})
@@ -266,60 +301,47 @@ shinyServer(function(input, output) {
 output$table1 <- renderTable({
     tab <- data.frame(
       metric = c(
-        'Sample Size', 'Conversion', 'ARPPU',
-        '<strong>ARPU<strong>', '<strong>95% HDI<strong>'
+        'Sample Size', 'Retained Players','<strong>Conversion<strong>','<strong>Retention<strong>', 'ARPPU',
+        'ARPU', '95% HDI'
       ),
       A = c(
         sprintf('\n%.d', sample_A),
-        sprintf('\n%.3g%%', conv_A*100),
-        sprintf('\n%.4g â¬', arppu_A),
-        sprintf('\n%.4g â¬', arpu_A),
-        sprintf('[ %.3g â¬, \n%.3g â¬ ]', hdi_A[1], hdi_A[2])
+        sprintf('\n%.d', retention_A),
+        sprintf('\n%.2g%%', conv_A*100),
+        sprintf('\n%.2g%%', convret_A*100),
+        sprintf('\n%.2g â¬', arppu_A),
+        sprintf('\n%.2g â¬', arpu_A),
+        sprintf('[%.2g â¬, \n%.2g â¬]', hdi_A[1], hdi_A[2])
       ),
       B = c(
         sprintf('\n%.d', sample_B),
-        sprintf('\n%.3g%%', conv_B*100),
-        sprintf('\n%.4g â¬', arppu_B),
-        sprintf('\n%.4g â¬', arpu_B),
-        sprintf('[ %.3g â¬, \n%.3g â¬ ]', hdi_B[1], hdi_B[2])
+        sprintf('\n%.d', retention_B),
+        sprintf('\n%.2g%%', conv_B*100),
+        sprintf('\n%.2g%%', convret_B*100),
+        sprintf('\n%.2g â¬', arppu_B),
+        sprintf('\n%.2g â¬', arpu_B),
+        sprintf('[%.2g â¬, \n%.2g â¬]', hdi_B[1], hdi_B[2])
       ),
       C = c(
         sprintf('\n%.d', sample_C),
-        sprintf('\n%.3g%%', conv_C*100),
-        sprintf('\n%.4g â¬', arppu_C),
-        sprintf('\n%.4g â¬', arpu_C),
-        sprintf('[ %.3g â¬, \n%.3g â¬ ]', hdi_C[1], hdi_C[2])
+        sprintf('\n%.d', retention_C),
+        sprintf('\n%.2g%%', conv_C*100),
+        sprintf('\n%.2g%%', convret_C*100),
+        sprintf('\n%.2g â¬', arppu_C),
+        sprintf('\n%.2g â¬', arpu_C),
+        sprintf('[%.2g â¬, \n%.2g â¬]', hdi_C[1], hdi_C[2])
       ),
       D = c(
         sprintf('\n%.d', sample_D),
-        sprintf('\n%.3g%%', conv_D*100),
-        sprintf('\n%.4g â¬', arppu_D),
-        sprintf('\n%.4g â¬', arpu_D),
-        sprintf('[ %.3g â¬, \n%.3g â¬ ]', hdi_D[1], hdi_D[2])
-      ),
-      BA = c(
-        sprintf(' '),
-        sprintf('\n%.3g%%', conv_B*100 - conv_A*100),
-        sprintf('\n%.4g â¬', arppu_B - arppu_A),
-        sprintf('\n%.4g â¬', arpu_B - arpu_A),
-        sprintf('[ %.3g â¬, \n%.3g â¬ ]', hdi_diffAB[1], hdi_diffAB[2])
-      ),
-      CA = c(
-        sprintf(' '),
-        sprintf('\n%.3g%%', conv_C*100 - conv_A*100),
-        sprintf('\n%.4g â¬', arppu_C - arppu_A),
-        sprintf('\n%.4g â¬', arpu_C - arpu_A),
-        sprintf('[ %.3g â¬, \n%.3g â¬ ]', hdi_diffAC[1], hdi_diffAC[2])
-      ),
-      CB = c(
-        sprintf(' '),
-        sprintf('\n%.3g%%', conv_C*100 - conv_B*100),
-        sprintf('\n%.4g â¬', arppu_C - arppu_B),
-        sprintf('\n%.4g â¬', arpu_C - arpu_B),
-        sprintf('[ %.3g â¬, \n%.3g â¬ ]', hdi_diffBC[1], hdi_diffBC[2])
+        sprintf('\n%.d', retention_D),
+        sprintf('\n%.2g%%', conv_D*100),
+        sprintf('\n%.2g%%', convret_D*100),
+        sprintf('\n%.2g â¬', arppu_D),
+        sprintf('\n%.2g â¬', arpu_D),
+        sprintf('[%.2g â¬, \n%.2g â¬]', hdi_D[1], hdi_D[2])
       )
     )
-    colnames(tab) <- c(' ', 'A', 'B', 'C','D', 'B - A', 'C - A', 'C - B')
+    colnames(tab) <- c(' ', 'A', 'B', 'C','D')
     tab
   }, spacing = 'xs', sanitize.text.function = function(x){x})
   
@@ -331,13 +353,7 @@ output$table2 <- renderTable({
       'Probability that D is better than A',
       'Probability that C is better than B',
       'Probability that D is better than B',
-      'Probability that D is better than C',
-      'Expected uplift if B is better than A',
-      'Expected loss if B is worse than A',
-      'Expected uplift if C is better than A',
-      'Expected loss if C is worse than A',
-      'Expected uplift if C is better than B',
-      'Expected loss if C is worse than B'
+      'Probability that D is better than C'
     ),
     conversion = c(
       sprintf('\n%.1f%%', res$convProbBbeatsA*100),
@@ -345,13 +361,7 @@ output$table2 <- renderTable({
       sprintf('\n%.1f%%', res$convProbDbeatsA*100),
       sprintf('\n%.1f%%', res$convProbCbeatsB*100),
       sprintf('\n%.1f%%', res$convProbDbeatsB*100),
-      sprintf('\n%.1f%%', res$convProbDbeatsC*100),
-      sprintf('\n%.2g%%', res$convExpLossA_AB*100),
-      sprintf('\n%.2g%%', res$convExpLossB_AB*100),
-      sprintf('\n%.2g%%', res$convExpLossA_AC*100),
-      sprintf('\n%.2g%%', res$convExpLossC_AC*100),
-      sprintf('\n%.2g%%', res$convExpLossB_BC*100),
-      sprintf('\n%.2g%%', res$convExpLossC_BC*100)
+      sprintf('\n%.1f%%', res$convProbDbeatsC*100)
     ),
     ARPPU = c(
       sprintf('\n%.1f%%', res$revProbBbeatsA*100),
@@ -359,13 +369,7 @@ output$table2 <- renderTable({
       sprintf('\n%.1f%%', res$revProbDbeatsA*100),
       sprintf('\n%.1f%%', res$revProbCbeatsB*100),
       sprintf('\n%.1f%%', res$revProbDbeatsB*100),
-      sprintf('\n%.1f%%', res$revProbDbeatsC*100),
-      sprintf('\n%.2g â¬', res$revExpLossA_AB),
-      sprintf('\n%.2g â¬', res$revExpLossB_AB),
-      sprintf('\n%.2g â¬', res$revExpLossA_AC),
-      sprintf('\n%.2g â¬', res$revExpLossC_AC),
-      sprintf('\n%.2g â¬', res$revExpLossB_BC),
-      sprintf('\n%.2g â¬', res$revExpLossC_BC)
+      sprintf('\n%.1f%%', res$revProbDbeatsC*100)
     ),
     ARPU = c(
       sprintf('\n%.1f%%', res$arpuProbBbeatsA*100),
@@ -373,133 +377,80 @@ output$table2 <- renderTable({
       sprintf('\n%.1f%%', res$arpuProbDbeatsA*100),
       sprintf('\n%.1f%%', res$arpuProbCbeatsB*100),
       sprintf('\n%.1f%%', res$arpuProbDbeatsB*100),
-      sprintf('\n%.1f%%', res$arpuProbDbeatsC*100),
-      sprintf('\n%.2g â¬', res$arpuExpLossA_AB),
-      sprintf('\n%.2g â¬', res$arpuExpLossB_AB),
-      sprintf('\n%.2g â¬', res$arpuExpLossA_AC),
-      sprintf('\n%.2g â¬', res$arpuExpLossC_AC),
-      sprintf('\n%.2g â¬', res$arpuExpLossB_BC),
-      sprintf('\n%.2g â¬', res$arpuExpLossC_BC)
+      sprintf('\n%.1f%%', res$arpuProbDbeatsC*100)
+    ),
+    Retention = c(
+      sprintf('\n%.2g%% [\n%.2g%%]',as.numeric((convret_B-convret_A)/convret_A)*100, prob_B_beats_A(alpharet_A, betaret_A, alpharet_B, betaret_B)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]',as.numeric((convret_C-convret_A)/convret_A)*100, prob_C_beats_A(alpharet_A, betaret_A, alpharet_C, betaret_C)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]',as.numeric((convret_D-convret_A)/convret_A)*100, prob_D_beats_A(alpharet_A, betaret_A, alpharet_D, betaret_D)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]',as.numeric((convret_C-convret_B)/convret_B)*100, prob_C_beats_B(alpharet_C, betaret_C, alpharet_B, betaret_B)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]',as.numeric((convret_D-convret_B)/convret_B)*100, prob_D_beats_B(alpharet_D, betaret_D, alpharet_B, betaret_B)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]',as.numeric((convret_D-convret_C)/convret_C)*100, prob_D_beats_C(alpharet_D, betaret_D, alpharet_C, betaret_C)*100)
+      
     )
   )
-  colnames(tab) <- c(' ', 'conversion', 'ARPPU', 'ARPU')
+  colnames(tab) <- c(' ', 'Conversion', 'ARPPU', 'ARPU', 'Retention')
   tab
 }, spacing = 'xs')
-    
+
 output$table3 <- renderTable({
   tab <- data.frame(
-    metric = c('sample size','conversion','A-B','B-A','A-C','C-A','A-D','D-A','A-B,B-A'),
-    A = c(
-      sprintf('\n%.d', sample_A),
-      sprintf('\n%.3g%%', convret_A*100),
-      sprintf('\n%.3g%%',as.numeric((convret_A-convret_B)/convret_B)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_B-convret_A)/convret_A)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_A-convret_C)/convret_C)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_C-convret_A)/convret_A)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_A-convret_D)/convret_D)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_D-convret_A)/convret_A)*100),
-      sprintf('[ %.3g%%, \n%.3g%% ]', as.numeric((convret_A-convret_B)/convret_B)[1]*100, as.numeric((convret_B-convret_A)/convret_A)[1]*100)
+    column1 = c(
+      'Probability that A is better than B',
+      'Probability that A is better than C',
+      'Probability that A is better than D',
+      'Probability that B is better than C',
+      'Probability that B is better than D',
+      'Probability that C is better than D'
     ),
-    B = c(
-      sprintf('\n%.d', sample_B),
-      sprintf('\n%.3g%%', convret_B*100),
-      sprintf('\n%.3g%%',as.numeric((convret_B-convret_C)/convret_C)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_C-convret_B)/convret_B)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_B-convret_A)/convret_A)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_A-convret_B)/convret_B)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_B-convret_A)/convret_A)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_A-convret_B)/convret_B)*100),
-      sprintf('[ %.3g%%, \n%.3g%% ]', as.numeric((convret_B-convret_C)/convret_C)[1]*100, as.numeric((convret_C-convret_B)/convret_B)[1]*100)
+    conversion = c(
+      sprintf('\n%.1f%%', res$convProbAbeatsB*100),
+      sprintf('\n%.1f%%', res$convProbAbeatsC*100),
+      sprintf('\n%.1f%%', res$convProbAbeatsD*100),
+      sprintf('\n%.1f%%', res$convProbBbeatsC*100),
+      sprintf('\n%.1f%%', res$convProbBbeatsD*100),
+      sprintf('\n%.1f%%', res$convProbCbeatsD*100)
     ),
-    C = c(
-      sprintf('\n%.d', sample_C),
-      sprintf('\n%.3g%%', convret_C*100),
-      sprintf('\n%.3g%%',as.numeric((convret_C-convret_A)/convret_A)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_A-convret_C)/convret_C)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_C-convret_B)/convret_B)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_B-convret_C)/convret_C)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_C-convret_B)/convret_B)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_B-convret_C)/convret_C)*100),
-      sprintf('[ %.3g%%, \n%.3g%% ]', as.numeric((convret_C-convret_A)/convret_A)[1]*100, as.numeric((convret_A-convret_C)/convret_C)[1]*100)
+    ARPPU = c(
+      sprintf('\n%.1f%%', res$revProbAbeatsB*100),
+      sprintf('\n%.1f%%', res$revProbAbeatsC*100),
+      sprintf('\n%.1f%%', res$revProbAbeatsD*100),
+      sprintf('\n%.1f%%', res$revProbBbeatsC*100),
+      sprintf('\n%.1f%%', res$revProbBbeatsD*100),
+      sprintf('\n%.1f%%', res$revProbCbeatsD*100)
     ),
-    D = c(
-      sprintf('\n%.d', sample_D),
-      sprintf('\n%.3g%%', convret_D*100),
-      sprintf('\n%.3g%%',as.numeric((convret_D-convret_A)/convret_A)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_A-convret_D)/convret_D)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_D-convret_B)/convret_B)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_B-convret_D)/convret_D)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_D-convret_B)/convret_B)*100),
-      sprintf('\n%.3g%%',as.numeric((convret_B-convret_D)/convret_D)*100),
-      sprintf('[ %.3g%%, \n%.3g%% ]', as.numeric((convret_D-convret_A)/convret_A)[1]*100, as.numeric((convret_A-convret_D)/convret_D)[1]*100)
+    ARPU = c(
+      sprintf('\n%.1f%%', res$arpuProbAbeatsB*100),
+      sprintf('\n%.1f%%', res$arpuProbAbeatsC*100),
+      sprintf('\n%.1f%%', res$arpuProbAbeatsD*100),
+      sprintf('\n%.1f%%', res$arpuProbBbeatsC*100),
+      sprintf('\n%.1f%%', res$arpuProbBbeatsD*100),
+      sprintf('\n%.1f%%', res$arpuProbCbeatsD*100)
+    ),
+    Retention1 = c(
+      sprintf('\n%.2g%% [\n%.2g%%]', as.numeric((convret_A-convret_B)/convret_B)*100, prob_A_beats_B(alpharet_B, betaret_B, alpharet_A, betaret_A)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]', as.numeric((convret_A-convret_C)/convret_C)*100, prob_A_beats_C(alpharet_C, betaret_C, alpharet_A, betaret_A)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]', as.numeric((convret_A-convret_D)/convret_D)*100, prob_A_beats_D(alpharet_D, betaret_D, alpharet_A, betaret_A)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]', as.numeric((convret_B-convret_C)/convret_C)*100, prob_B_beats_C(alpharet_C, betaret_C, alpharet_B, betaret_B)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]', as.numeric((convret_B-convret_D)/convret_D)*100, prob_B_beats_D(alpharet_D, betaret_D, alpharet_B, betaret_B)*100),
+      sprintf('\n%.2g%% [\n%.2g%%]', as.numeric((convret_C-convret_D)/convret_D)*100, prob_C_beats_D(alpharet_D, betaret_D, alpharet_C, betaret_C)*100) 
     )
   )
-  colnames(tab) <- c(' ', 'A', 'B','C','D')
+  colnames(tab) <- c(' ', 'Conversion', 'ARPPU', 'ARPU', 'Retention')
   tab
-})
-    
+}, spacing = 'xs')
+
 output$table4 <- renderTable({
   tab <- data.frame(
-    metric = c('A>B', 'A>C', 'A>D','B>A', 'B>C', 'B>D', 'C>A','C>B','C>D','D>A','D>B','D>C'),
-    A = c(
-      sprintf('\n%.3g%%', prob_A_beats_B(alpharet_B, betaret_B, alpharet_A, betaret_A)*100),
-      sprintf('\n%.3g%%', prob_A_beats_C(alpharet_C, betaret_C, alpharet_A, betaret_A)*100),
-      sprintf('\n%.3g%%', prob_A_beats_D(alpharet_D, betaret_D, alpharet_A, betaret_A)*100),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' ')
-    ),
-    B = c(
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%.3g%%', prob_B_beats_A(alpharet_A, betaret_A, alpharet_B, betaret_B)*100),
-      sprintf('\n%.3g%%', prob_B_beats_C(alpharet_C, betaret_C, alpharet_B, betaret_B)*100),
-      sprintf('\n%.3g%%', prob_B_beats_D(alpharet_D, betaret_D, alpharet_B, betaret_B)*100),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' ')
-    ),
-    C = c(
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%.3g%%', prob_C_beats_A(alpharet_A, betaret_A, alpharet_C, betaret_C)*100),
-      sprintf('\n%.3g%%', prob_C_beats_B(alpharet_B, betaret_B, alpharet_C, betaret_C)*100),
-      sprintf('\n%.3g%%', prob_C_beats_D(alpharet_D, betaret_D, alpharet_C, betaret_C)*100),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' ')
-    ),
-    D = c(
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%s', ' '),
-      sprintf('\n%.3g%%', prob_C_beats_A(alpharet_A, betaret_A, alpharet_C, betaret_C)*100),
-      sprintf('\n%.3g%%', prob_C_beats_B(alpharet_B, betaret_B, alpharet_C, betaret_C)*100),
-      sprintf('\n%.3g%%', prob_C_beats_D(alpharet_D, betaret_D, alpharet_C, betaret_C)*100)
+    column1 = c(
+      '*Retention1 refers to A better than B, A better than C, B better than C',
+      '*Retention2 refers to B better than A, C better than A, C better than B',
+      'Report largest value (positive integer)'
     )
   )
-  colnames(tab) <- c(' ', 'A', 'B','C','D')
+  colnames(tab) <- c(' ')
   tab
-}) 
-})
+}, spacing = 'xs')
+
+  })
 })
