@@ -118,6 +118,10 @@ shinyUI(
           max = 1e6,
           value = 832
         ),
+        textInput(
+          'testday',
+          'Test Day',
+          value='Day 1'),
         numericInput(
           'sim_sample',
           'Monte-Carlo MC Samples:',
@@ -147,7 +151,9 @@ shinyUI(
         tableOutput('table1'),
         tableOutput('table2'),
         tableOutput('table3'),
-        tableOutput('table4')
+        tableOutput('table7'),
+        tableOutput('table6'),
+        tableOutput('table5')
       )
     )
   )
