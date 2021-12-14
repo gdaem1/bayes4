@@ -118,10 +118,6 @@ shinyUI(
           max = 1e6,
           value = 832
         ),
-        textInput(
-          'testday',
-          'Test Day',
-          value='Day 1'),
         numericInput(
           'sim_sample',
           'Monte-Carlo MC Samples:',
@@ -132,6 +128,31 @@ shinyUI(
         actionButton(
           'button',
           'Calculate'
+        ),
+        textInput(
+          'testday',
+          'Test Day',
+          value='Day 1'
+        ),
+        textInput(
+          'Controlname',
+          'Control Group',
+          value='the Control group'
+        ),
+        textInput(
+          'Treatment1name',
+          'Treatment 1 Name',
+          value='Group B'
+        ),
+        textInput(
+          'Treatment2name',
+          'Treatment 2 Name',
+          value='Group C'
+        ),
+        textInput(
+          'Treatment3name',
+          'Treatment 3 Name',
+          value='Group D'
         ),
         hr(),
         tags$div(
@@ -151,9 +172,9 @@ shinyUI(
         tableOutput('table1'),
         tableOutput('table2'),
         tableOutput('table3'),
-        tableOutput('table7'),
-        tableOutput('table6'),
-        tableOutput('table5')
+        tableOutput('retention'),
+        tableOutput('ltv'),
+        tableOutput('conversion')
       )
     )
   )
